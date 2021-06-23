@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Top NYT Articles</string>
+    <string name="articlename">UNTITLED</string>
+    <string name="sectionname">SECTION</string>
+    <string name="datestring">MM/DD/YYYY</string>
+    <string name="home">HOME</string>
+    <string name="sport">SPORTS</string>
+    <string name="tech">TECHNOLOGY</string>
+    <string name="busi">BUSINESS</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
