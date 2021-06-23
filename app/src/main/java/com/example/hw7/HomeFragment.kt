@@ -43,7 +43,7 @@ class HomeFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        var requestGet = Request.Builder().url("https://api.nytimes.com/svc/topstories/v2/home.json?api-key=ApC7evRJfy3oG9pZOqobZcKtlG8FFLNE").build()
+        var requestGet = Request.Builder().url("https://api.nytimes.com/svc/topstories/v2/home.json?api-key="+key).build()
 
         val root = inflater.inflate(R.layout.fragment_home, container, false)
 
