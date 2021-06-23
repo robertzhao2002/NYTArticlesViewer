@@ -31,11 +31,12 @@ class HomeFragment : Fragment() {
     lateinit var recyclerView : RecyclerView
     lateinit var mAdapter : RecyclerView.Adapter<*>
     lateinit var layoutManager : RecyclerView.LayoutManager
+    private var key: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-
+            key = it.getString("key")
         }
     }
 
@@ -86,7 +87,7 @@ class HomeFragment : Fragment() {
         fun newInstance(param1: String) =
                 HomeFragment().apply {
                     arguments = Bundle().apply {
-
+                        putString("key", param1)
                     }
                 }
     }

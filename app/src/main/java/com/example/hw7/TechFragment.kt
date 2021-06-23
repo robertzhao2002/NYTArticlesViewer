@@ -30,18 +30,19 @@ class TechFragment : Fragment() {
     lateinit var recyclerView : RecyclerView
     lateinit var mAdapter : RecyclerView.Adapter<*>
     lateinit var layoutManager : RecyclerView.LayoutManager
+    private var key: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-
+            key = it.getString("key")
         }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        var requestGet = Request.Builder().url("https://api.nytimes.com/svc/topstories/v2/technology.json?api-key=ApC7evRJfy3oG9pZOqobZcKtlG8FFLNE").build()
+        var requestGet = Request.Builder().url("https://api.nytimes.com/svc/topstories/v2/technology.json?api-key="+key).build()
 
         val root = inflater.inflate(R.layout.fragment_home, container, false)
 
@@ -82,10 +83,10 @@ class TechFragment : Fragment() {
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance(param1: String) =
                 TechFragment().apply {
                     arguments = Bundle().apply {
-
+                        putString("key", param1)
                     }
                 }
     }
