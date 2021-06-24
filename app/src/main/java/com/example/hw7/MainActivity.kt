@@ -12,11 +12,7 @@ import java.io.File
 
 class MainActivity : AppCompatActivity() {
     lateinit var bottom_home_nav : BottomNavigationView
-    lateinit var homeFragment: HomeFragment
-    lateinit var sportsFragment: SportsFragment
-    lateinit var techFragment: TechFragment
-    lateinit var busiFragment: BusiFragment
-
+    lateinit var secFrag: SectionFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,47 +23,47 @@ class MainActivity : AppCompatActivity() {
 
         bottom_home_nav = findViewById(R.id.home_nav)
 
-        homeFragment = HomeFragment()
+        secFrag = SectionFragment.newInstance("home", apikey)
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.frame_layout, homeFragment)
+            .replace(R.id.frame_layout, secFrag)
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             .commit()
 
         bottom_home_nav.setOnNavigationItemSelectedListener OnNavigationItemSelectedListener@{
             when (it.itemId) {
                 R.id.home_item -> {
-                    homeFragment = HomeFragment.newInstance(apikey)
+                    secFrag = SectionFragment.newInstance("home", apikey)
                     supportFragmentManager
                             .beginTransaction()
-                            .replace(R.id.frame_layout, homeFragment)
+                            .replace(R.id.frame_layout, secFrag)
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                             .commit()
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.sports_item -> {
-                    sportsFragment = SportsFragment.newInstance(apikey)
+                    secFrag = SectionFragment.newInstance("sports", apikey)
                     supportFragmentManager
                             .beginTransaction()
-                            .replace(R.id.frame_layout, sportsFragment)
+                            .replace(R.id.frame_layout, secFrag)
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                             .commit()
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.tech_item -> {
-                    techFragment = TechFragment.newInstance(apikey)
+                    secFrag = SectionFragment.newInstance("technology", apikey)
                     supportFragmentManager
                             .beginTransaction()
-                            .replace(R.id.frame_layout, techFragment)
+                            .replace(R.id.frame_layout, secFrag)
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                             .commit()
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.business_item -> {
-                    busiFragment = BusiFragment.newInstance(apikey)
+                    secFrag = SectionFragment.newInstance("business", apikey)
                     supportFragmentManager
                             .beginTransaction()
-                            .replace(R.id.frame_layout, busiFragment)
+                            .replace(R.id.frame_layout, secFrag)
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                             .commit()
                     return@OnNavigationItemSelectedListener true

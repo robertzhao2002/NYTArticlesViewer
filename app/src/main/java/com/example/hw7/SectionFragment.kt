@@ -23,18 +23,22 @@ private val resultsJsonAdapter : JsonAdapter<Result> = moshi.adapter(Result::cla
 
 /**
  * A simple [Fragment] subclass.
- * Use the [SportsFragment.newInstance] factory method to
+ * Use the [SectionFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class SportsFragment : Fragment() {
+class SectionFragment : Fragment() {
+
     lateinit var recyclerView : RecyclerView
     lateinit var mAdapter : RecyclerView.Adapter<*>
     lateinit var layoutManager : RecyclerView.LayoutManager
+
+    private var sectionName: String? = null
     private var key: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
+            sectionName = it.getString("section")
             key = it.getString("key")
         }
     }
@@ -42,9 +46,9 @@ class SportsFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        var requestGet = Request.Builder().url("https://api.nytimes.com/svc/topstories/v2/sports.json?api-key="+key).build()
+        var requestGet = Request.Builder().url("https://api.nytimes.com/svc/topstories/v2/"+ sectionName +".json?api-key="+key).build()
 
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
+        val root = inflater.inflate(R.layout.fragment_section, container, false)
 
         client.newCall(requestGet).enqueue(object: Callback {
             override fun onFailure(call: Call, e: IOException) {
@@ -56,11 +60,11 @@ class SportsFragment : Fragment() {
                     if (!it.isSuccessful) throw IOException("Unexpected code $response")
                     var result: Result? = resultsJsonAdapter.fromJson(response.body!!.string())
                     val articlesList: List<Article> = result!!.results
-                    Log.d("result", articlesList.toString())
+                    //Log.d("result", articlesList.toString())
                     var articles = arrayListOf<Article>()
                     articles.addAll(articlesList)
                     activity!!.runOnUiThread(java.lang.Runnable {
-                        recyclerView = root.findViewById(R.id.homearticles)
+                        recyclerView = root.findViewById(R.id.sectionarticles)
                         mAdapter = ArticleAdapter(articles)
                         recyclerView.adapter = mAdapter
                         layoutManager = LinearLayoutManager(container!!.context)
@@ -79,14 +83,15 @@ class SportsFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment SportsFragment.
+         * @return A new instance of fragment SectionFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String) =
-                SportsFragment().apply {
+        fun newInstance(section: String, key: String) =
+                SectionFragment().apply {
                     arguments = Bundle().apply {
-                        putString("key", param1)
+                        putString("section", section)
+                        putString("key", key)
                     }
                 }
     }
